@@ -1,0 +1,47 @@
+{
+  "name": "@mtbjorn/courtjester",
+  "version": "0.0.1",
+  "description": "A tool for ingesting & parsing judicial news",
+  "main": "dist/main.js",
+  "entry": "src/index.js",
+  "scripts": {
+    "execute": "node ./dist/main.js",
+    "start": "npm run build && npm run execute",
+    "build:prod": "webpack --config=webpack.config.prod.js",
+    "build:dev": "webpack --config=webpack.config.dev.js",
+    "build": "npm run build:dev",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "npm run build:prod"
+  },
+  "keywords": [],
+  "files": [
+    "/dist"
+  ],
+  "exports": {
+    ".": "./dist/main.js"
+  },
+  "homepage": "https://github.com/CAndRyan/MTBjorn.CourtJester",
+  "bugs": {
+    "url": "https://github.com/CAndRyan/MTBjorn.CourtJester/issues",
+    "email": "mtbjorn41@outlook.com"
+  },
+  "author": "@CAndRyan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CAndRyan/MTBjorn.CourtJester.git"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@babel/plugin-transform-runtime": "^7.16.10",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.7"
+  }
+}
