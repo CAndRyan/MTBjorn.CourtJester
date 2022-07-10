@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+    <div id="development-app"></div>
+
+    <script defer type="text/javascript">
+        const onReady = function(event) { 
+            courtjester.renderUi('development-app');
+        };
+
+        if (document.readyState === 'loading')
+            document.addEventListener('DOMContentLoaded', onReady);
+        else
+            onReady();
+    </script>
+</body>
+</html>

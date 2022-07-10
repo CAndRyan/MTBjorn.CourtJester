@@ -1,5 +1,6 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     mode: 'development',
@@ -7,13 +8,16 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'main.js',
-        library: 'court-jester',
+        library: 'courtjester',
         libraryTarget: 'umd',
         globalObject: 'this',
         publicPath: ''
     },
     resolve: {
-        extensions: ['', '.js', '.mjs']
+        extensions: ['', '.js', '.jsx', '.mjs', 'css', 'scss', '.module.css', '.module.scss'],
+        alias: {
+            hypotenuse: path.resolve(__dirname, 'node_modules/@mtbjorn/hypotenuse/dist/')
+        }
     },
     module: {
         rules: [
@@ -26,10 +30,38 @@ module.exports = {
                         presets: ['@babel/preset-env']
                     }
                 }
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    "style-loader",
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: true
+                        }
+                    },
+                    "sass-loader"
+                ],
+                include: /\.module\.s[ac]ss$/
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    "style-loader",
+                    'css-loader',
+                    "sass-loader"
+                ],
+                exclude: /\.module\.s[ac]ss$/
             }
         ]
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'Court Jester | development',
+            template: './src/index.html'
+        })
     ]
 };
