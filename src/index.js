@@ -1,6 +1,7 @@
-import { getParser, KNOX_COUNTY_TN_ROOT_URL } from './parser/parser';
+import { getParser, KNOX_COUNTY_TN_ROOT_URL, RHODE_ISLAND_STATE_ROOT_URL } from './parser/parser';
 
-const parser = getParser(KNOX_COUNTY_TN_ROOT_URL);
+// const parser = getParser(KNOX_COUNTY_TN_ROOT_URL);
+const parser = getParser(RHODE_ISLAND_STATE_ROOT_URL);
 
 const parseSubPage = async (url) => {
     const data = await parser.parseSubPage(url);
