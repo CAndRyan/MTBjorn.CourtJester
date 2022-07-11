@@ -1,11 +1,12 @@
-import { renderElementAsAppend } from '@mtbjorn/hypotenuse/ui';
-import ParserApp from './ui/parserApp';
+import { getParser, KNOX_COUNTY_TN_ROOT_URL } from './parser/parser';
 
-const renderUi = (parentElementId) => {
-    renderElementAsAppend(<ParserApp />, parentElementId);
+const execute = async () => {
+    const parser = getParser(KNOX_COUNTY_TN_ROOT_URL);
+    const subPageUrls = await parser.getSubPageUrls(parser.rootUrl);
+    console.log(subPageUrls);
+
+    const data = await parser.parseSubPage('https://dag.knoxcountytn.gov/press-release/stepfather-convicted-of-molesting-eleven-year-old/');
+    console.log(data);
 };
 
-export {
-    renderUi
-};
-
+execute();
