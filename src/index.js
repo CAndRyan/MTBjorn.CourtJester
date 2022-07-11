@@ -1,12 +1,23 @@
 import { getParser, KNOX_COUNTY_TN_ROOT_URL } from './parser/parser';
 
-const execute = async () => {
-    const parser = getParser(KNOX_COUNTY_TN_ROOT_URL);
-    const subPageUrls = await parser.getSubPageUrls(parser.rootUrl);
-    console.log(subPageUrls);
+const parser = getParser(KNOX_COUNTY_TN_ROOT_URL);
 
-    const data = await parser.parseSubPage('https://dag.knoxcountytn.gov/press-release/stepfather-convicted-of-molesting-eleven-year-old/');
-    console.log(data);
+const parseSubPage = async (url) => {
+    const data = await parser.parseSubPage(url);
+    console.log(data.title);
+
+    return data;
 };
 
-execute();
+const execute = async () => {
+    const subPageUrls = await parser.getSubPageUrls(parser.rootUrl);
+    console.log(`${subPageUrls.length} press releases`);
+
+    const tasks = subPageUrls.map(parseSubPage); // TODO: limit the number of parallel tasks?
+    await Promise.all(tasks);
+};
+
+console.time('execute');
+execute().then(() => {
+    console.timeEnd('execute');
+});
